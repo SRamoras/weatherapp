@@ -1,0 +1,127 @@
+.favorites-carousel-container {
+  position: relative;
+  border-radius: 10px;
+  background-color: #dbdbdb;
+  padding: 20px;
+}
+
+.favorites-carousel-container h3 {
+  margin: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.favorites-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.favorites-carousel ul {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  scrollbar-width: none; /* Ocultar barra de rolagem no Firefox */
+}
+
+.favorites-carousel ul::-webkit-scrollbar {
+  display: none; /* Ocultar barra de rolagem no Chrome/Safari */
+}
+
+.favorite-item {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px 20px 40px; /* Espaço adicional para o botão no topo */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 120px;
+}
+
+.favorite-item:hover {
+  background-color: #f0f0f0;
+}
+
+.favorite-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.country-flag {
+  width: 80px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.favorite-city {
+  margin-top: 10px;
+  text-align: center;
+  color: #333;
+  text-decoration: underline;
+}
+
+/* Botão de remover no canto superior direito */
+.remove-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  color: #ff4d4d;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  font-weight: bold;
+}
+
+.favorite-item:hover .remove-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.remove-button:hover {
+  color: #ff1a1a;
+}
+
+/* Setas do carrossel */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(255,255,255,1);
+  opacity: 1;
+}
+
+.carousel-arrow.left {
+  left: 5px;
+}
+
+.carousel-arrow.right {
+  right: 5px;
+}

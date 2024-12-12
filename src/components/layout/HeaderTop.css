@@ -1,0 +1,23 @@
+header h1 {
+  color: #fff;
+}header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+}
+.location-container-header {
+  display: flex;
+  align-items: center;
+
+}
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 200,
+    'GRAD' 0,
+    'opsz' 48;
+  /* Tamanho e cor padrão dos ícones */
+  font-size: 30px;
+  color: #fff;
+}

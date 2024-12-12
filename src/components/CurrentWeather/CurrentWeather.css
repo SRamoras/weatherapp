@@ -1,0 +1,93 @@
+/* src/components/CurrentWeather/CurrentWeather.css */
+
+.current-weather {
+  border-radius: 8px;
+
+  text-align: end;
+
+  border-radius: 20px;
+  height: 500px;   
+   justify-content: center;
+  display: flex
+;
+}
+.temp-container {
+  display: flex;
+  justify-content: center; /* Centraliza o .temp horizontalmente */
+  align-items: center;     /* Centraliza o .temp verticalmente */
+  position: relative;      /* Posição relativa para posicionar o .degree */
+}
+
+.temp {
+  font-size: 8rem;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+.degree {
+  font-size: 3rem;
+  font-weight: 300;
+  position: absolute;      /* Posição absoluta, relativa ao .temp-container */
+  left: 100%;              /* Posiciona o .degree imediatamente após o .temp */
+  top: 0;                  /* Alinha o topo do .degree com o topo do .temp */
+  transform: translate(0, 10%); /* Ajuste fino vertical se necessário */
+}
+
+.info-container-main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.info-container-main h2 {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+.info-container-main h2,.info-container-main p, .temp-container p, .degree, .date-display{
+  color: white;
+  text-shadow: 0em  0.02em  0.5em  #000;
+}
+.container-temp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.date-display {
+  text-align: center;
+  padding-bottom: 20px;
+  margin-bottom: 10px; /* Espaço antes do conteúdo principal */
+  font-size: 1.2rem; /* Tamanho da fonte */
+  color: #FFF; /* Cor do texto */
+}
+
+.temp-min-max {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.temp-min-max p {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.button-add{
+
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-add:hover {
+
+}

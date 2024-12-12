@@ -1,0 +1,92 @@
+/* src/components/HourlyForecast/HourlyForecast.css */
+
+.hourly-forecast {
+    margin: 20px 0;
+
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  
+  .hourly-forecast h3 {
+    text-align: start;
+    margin:0;    
+    font-size: 13px;
+  }
+  
+  .carousel-container {
+    position: relative;
+  }
+  .hourly-items-container img {
+    width: 30px;
+    height: 30px;
+
+  }
+  .hourly-items-container {
+    display: flex;
+/* Esconde as barras de rolagem */
+    gap: 57.3px;
+  }
+  
+  .hourly-item {
+    flex: 0 0 auto;
+    width: 38px; /* Ajuste conforme necessário para responsividade */
+    border-radius: 8px;
+    text-align: center;
+
+  }
+  
+  .hourly-item .hour {
+    font-weight: bold;
+    margin-bottom: 0;
+
+  }
+  
+  .hourly-item .temp {
+    margin-top: 0;
+    font-size: 1.2em;
+
+  }
+  
+  .weather-icon {
+    width: 60px; /* Aumenta o tamanho conforme necessário */
+    height: 60px; /* Aumenta o tamanho conforme necessário */
+  }
+
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+
+    transition: background-color 0.3s;
+    z-index: 1;
+  }
+
+  .carousel-arrow:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  
+  .carousel-arrow.left {
+    left: -10px; /* Ajuste conforme necessário */
+  }
+  
+  .carousel-arrow.right {
+    right: -10px; /* Ajuste conforme necessário */
+  }
+  
+  /* Oculta as barras de rolagem em navegadores Webkit */
+  .hourly-items-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Oculta as barras de rolagem em Firefox */
+  .hourly-items-container {
+    scrollbar-width: none;
+  }
+  
