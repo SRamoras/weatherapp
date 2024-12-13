@@ -31,7 +31,7 @@ const HourlyForecast = ({ hourlyData }) => {
         <span className="material-symbols-outlined calendar-icon">
           schedule
         </span>
-        <h3>Parece que hoje o tempo está divertido e perfeito para passeios no parque, ou relaxar ao ar livre.</h3>
+        <h3>It seems like today's weather is fun and perfect for walks in the park, or relaxing outdoors.</h3>
       </div>
       <div className="divider"></div> {/* Divisor adicionado aqui */}
       <div className="hourly-items-container">

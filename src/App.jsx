@@ -29,7 +29,7 @@ const App = () => {
   const [coords, setCoords] = useState(null);
   const [showFavoritesPage, setShowFavoritesPage] = useState(false);
 
-  // Controla a barra de busca
+  // Controls the search bar
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isClosingSearchBar, setIsClosingSearchBar] = useState(false);
 
@@ -41,13 +41,13 @@ const App = () => {
         const response = await getLocationByIP();
         const { loc, city, country } = response.data;
         if (!loc) {
-          throw new Error('Localização não encontrada.');
+          throw new Error('Location not found.');
         }
         const [latitude, longitude] = loc.split(',').map(Number);
         setCoords({ latitude, longitude, city, country });
       } catch (err) {
-        console.error('Erro ao obter localização por IP:', err);
-        setError('Não foi possível obter sua localização.');
+        console.error('Error getting location by IP:', err);
+        setError('Unable to get your location.');
       } finally {
         setLoading(false);
       }
@@ -67,13 +67,13 @@ const App = () => {
           const forecastResponse = await getForecastByCoords(latitude, longitude);
           setForecast(forecastResponse.data);
         } catch (err) {
-          console.error('Erro na busca por coordenadas:', err);
+          console.error('Error fetching by coordinates:', err);
           if (err.response) {
-            setError(err.response.data.error?.message || 'Erro na resposta da API.');
+            setError(err.response.data.error?.message || 'API response error.');
           } else if (err.request) {
-            setError('Nenhuma resposta da API. Verifique sua conexão.');
+            setError('No API response. Check your connection.');
           } else {
-            setError('Erro ao configurar a requisição.');
+            setError('Request setup error.');
           }
           setCurrentWeather(null);
           setForecast(null);
@@ -87,7 +87,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
-    console.log('Favoritos atualizados no localStorage:', favorites);
+    console.log('Favorites updated in localStorage:', favorites);
   }, [favorites]);
 
   const handleSearch = async (city) => {
@@ -100,17 +100,22 @@ const App = () => {
       setForecast(forecastResponse.data);
       const { lat, lon } = weatherResponse.data.location;
       const countryName = weatherResponse.data.location.country;
-      setCoords({ latitude: parseFloat(lat), longitude: parseFloat(lon), city: weatherResponse.data.location.name, country: countryName });
-      // Fechar a SearchBar com animação
+      setCoords({ 
+        latitude: parseFloat(lat), 
+        longitude: parseFloat(lon), 
+        city: weatherResponse.data.location.name, 
+        country: countryName 
+      });
+      // Close the SearchBar with animation
       handleCloseSearchBar();
     } catch (err) {
-      console.error('Erro na busca:', err);
+      console.error('Search error:', err);
       if (err.response) {
-        setError(err.response.data.error?.message || 'Erro na resposta da API.');
+        setError(err.response.data.error?.message || 'API response error.');
       } else if (err.request) {
-        setError('Nenhuma resposta da API. Verifique sua conexão.');
+        setError('No API response. Check your connection.');
       } else {
-        setError('Erro ao configurar a requisição.');
+        setError('Request setup error.');
       }
       setCurrentWeather(null);
       setForecast(null);
@@ -121,70 +126,80 @@ const App = () => {
 
   const addFavorite = (cityObj) => {
     if (cityObj.city && cityObj.countryName && !favorites.find(fav => fav.city === cityObj.city)) {
-      // Certifique-se de que currentWeather e forecast estão disponíveis
       if (currentWeather && forecast) {
         const updatedFavorites = [
           ...favorites, 
           {
             city: cityObj.city,
             countryName: cityObj.countryName,
-            currentTemp: currentWeather.current.temp_c, // Adicionado
+            currentTemp: currentWeather.current.temp_c,
             minTemp: forecast.forecast.forecastday[0].day.mintemp_c,
             maxTemp: forecast.forecast.forecastday[0].day.maxtemp_c,
             conditionText: currentWeather.current.condition.text,
             conditionIcon: currentWeather.current.condition.icon,
+            isDay: currentWeather.current.is_day === 1 // Add this line
           }
         ];
         setFavorites(updatedFavorites);
-        console.log(`Adicionado aos favoritos: ${cityObj.city}`, updatedFavorites);
+        console.log(`Added to favorites: ${cityObj.city}`, updatedFavorites);
       } else {
-        console.error('Dados meteorológicos não disponíveis para adicionar aos favoritos.');
+        console.error('Weather data not available to add to favorites.');
       }
     } else {
-      console.error('Favorito inválido ou já existente:', cityObj);
+      console.error('Invalid or already existing favorite:', cityObj);
     }
   };
+  
 
   const removeFavorite = (city) => {
     const updatedFavorites = favorites.filter(fav => fav.city !== city);
     setFavorites(updatedFavorites);
-    console.log(`Removido dos favoritos: ${city}`, updatedFavorites);
+    console.log(`Removed from favorites: ${city}`, updatedFavorites);
   };
 
   const getBackgroundClass = () => {
     if (!currentWeather || !currentWeather.current || !currentWeather.current.condition) return 'default-background';
     const weatherText = currentWeather.current.condition.text.toLowerCase();
-    if (weatherText.includes('claro') || weatherText.includes('sol') || weatherText.includes('ensolarado')) {
-      return 'clear-background';
-    } else if (weatherText.includes('nublado') || weatherText.includes('nuvem') || weatherText.includes('parcialmente nublado') || weatherText.includes('overcast') || weatherText.includes('partly')) {
-      return 'cloudy-background';
-    } else if (weatherText.includes('chuva') || weatherText.includes('chuvisco') || weatherText.includes('garoa') || weatherText.includes('drizzle') || weatherText.includes('shower')) {
-      return 'rainy-background';
-    } else if (weatherText.includes('trovão') || weatherText.includes('thunder')) {
-      return 'thunderstorm-background';
-    } else if (weatherText.includes('neve') || weatherText.includes('snow') || weatherText.includes('sleet')) {
-      return 'snow-background';
-    } else if (weatherText.includes('névoa') || weatherText.includes('nevoeiro') || weatherText.includes('haze') || weatherText.includes('fog') || weatherText.includes('mist')) {
-      return 'mist-background';
+    const isDay = currentWeather.current.is_day === 1; // true if day, false if night
+
+    // Helper function to return the correct background class based on condition and time of day
+    const getClass = (base) => {
+      return isDay ? `${base}-day` : `${base}-night`;
+    };
+
+    if (weatherText.includes('sun') || weatherText.includes('clear') || weatherText.includes('sunny')) {
+      return getClass('clear-background');
+    } else if (weatherText.includes('cloud') || weatherText.includes('overcast') || weatherText.includes('partly')) {
+      return getClass('cloudy-background');
+    } else if (weatherText.includes('rain') || weatherText.includes('drizzle') || weatherText.includes('shower')) {
+      return getClass('rainy-background');
+    } else if (weatherText.includes('thunder') || weatherText.includes('tstorm')) {
+      return getClass('thunderstorm-background');
+    } else if (weatherText.includes('snow') || weatherText.includes('sleet') || weatherText.includes('blizzard')) {
+      return getClass('snow-background');
+    } else if (weatherText.includes('mist') || weatherText.includes('fog') || weatherText.includes('haze')) {
+      return getClass('mist-background');
     } else {
-      return 'default-background';
+      return getClass('default-background');
     }
   };
 
   const getBackgroundClassColor = () => {
     if (!currentWeather || !currentWeather.current || !currentWeather.current.condition) return 'default-background-color';
     const weatherText = currentWeather.current.condition.text.toLowerCase();
-    if (weatherText.includes('claro') || weatherText.includes('sol') || weatherText.includes('ensolarado')) {
+    // For simplicity, we can just return a similar scheme for colors.
+    // If you want different colors for day/night, you can also apply logic here.
+    if (weatherText.includes('sun') || weatherText.includes('clear') || weatherText.includes('sunny')) {
       return 'clear-background-color';
-    } else if (weatherText.includes('nublado') || weatherText.includes('nuvem') || weatherText.includes('parcialmente nublado') || weatherText.includes('overcast') || weatherText.includes('partly')) {
+    } else if (weatherText.includes('cloud') || weatherText.includes('overcast') || weatherText.includes('partly')) {
       return 'cloudy-background-color';
-    } else if (weatherText.includes('chuva') || weatherText.includes('chuvisco') || weatherText.includes('garoa') || weatherText.includes('drizzle') || weatherText.includes('shower')) {
+    } else if (weatherText.includes('rain') || weatherText.includes('drizzle') || weatherText.includes('shower')) {
       return 'rainy-background-color';
-    } else if (weatherText.includes('trovão') || weatherText.includes('thunder')) {
+    } else if (weatherText.includes('thunder') || weatherText.includes('tstorm')) {
       return 'thunderstorm-background-color';
-    } else if (weatherText.includes('neve') || weatherText.includes('snow') || weatherText.includes('sleet')) {
+    } else if (weatherText.includes('snow') || weatherText.includes('sleet') || weatherText.includes('blizzard')) {
       return 'snow-background-color';
-    } else if (weatherText.includes('névoa') || weatherText.includes('nevoeiro') || weatherText.includes('haze') || weatherText.includes('fog') || weatherText.includes('mist')) {
+    } else if (weatherText.includes('mist') || weatherText.includes('fog') || weatherText.includes('haze')) {
       return 'mist-background-color';
     } else {
       return 'default-background-color';
@@ -200,9 +215,9 @@ const App = () => {
   };
 
   const handleCloseSearchBar = () => {
-    // Inicia a animação de fechamento
+    // Start closing animation
     setIsClosingSearchBar(true);
-    // Após 300ms (tempo da animação), realmente fecha o componente
+    // After 300ms, really close the component
     setTimeout(() => {
       setShowSearchBar(false);
       setIsClosingSearchBar(false);
@@ -211,24 +226,23 @@ const App = () => {
 
   const handleSearchIconClick = () => {
     if (showSearchBar) {
-      // Se já está aberto, iniciar a animação de fechamento
       handleCloseSearchBar();
     } else {
-      // Abrir a barra de busca
       setShowSearchBar(true);
     }
   };
 
   const handleLocationClick = () => {
     if (showSearchBar) {
-      // Fechar com animação
       handleCloseSearchBar();
     } else {
       setShowSearchBar(true);
     }
   };
+
   const minTemp = forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c;
   const maxTemp = forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c;
+
   return (
     <div>
       <div className={`main-container-home-page ${getBackgroundClass()} ${getBackgroundClassColor()}`}>
@@ -244,14 +258,13 @@ const App = () => {
           <SearchBar
             onSearch={handleSearch}
             onClose={handleCloseSearchBar}
-            // Passando a prop isClosing para controlar a animação
             isClosing={isClosingSearchBar}
           />
         )}
         {loading && <div className="spinner"></div>}
         {error && <p className="error">{error}</p>}
         <div className="app">
-        <CurrentWeather 
+          <CurrentWeather 
             data={currentWeather} 
             onAddFavorite={addFavorite} 
             onRemoveFavorite={removeFavorite} 
@@ -264,11 +277,6 @@ const App = () => {
           )}
           {forecast && <Forecast data={forecast} />}
         </div>
-        {/* <Favorites 
-          favorites={favorites} 
-          onSelectFavorite={handleSearch} 
-          onRemoveFavorite={removeFavorite} 
-        /> */}
         {showFavoritesPage && (
           <FavoritesPage 
             favorites={favorites} 
@@ -278,7 +286,8 @@ const App = () => {
           />
         )}
       </div>
-      {/* <Header
+      {/* If you want to use a separate header, uncomment below:
+      <Header
         onLocationClick={handleLocationClick}
         onSettingsClick={handleSettingsClick}
         onSearchIconClick={handleSearchIconClick}

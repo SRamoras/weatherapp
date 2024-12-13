@@ -3,7 +3,14 @@ import React from 'react';
 import './HeaderTop.css';
 // Removido: import { FaPlus, FaHeart } from 'react-icons/fa'; // Importando os ícones
 
-const HeaderTop = ({ onLocationClick, currentWeather, favorites, addFavorite, removeFavorite, onSettingsClick }) => {
+const HeaderTop = ({
+  onLocationClick,
+  currentWeather,
+  favorites,
+  addFavorite,
+  removeFavorite,
+  onSettingsClick
+}) => {
   // Extraindo a cidade e o nome do país de currentWeather
   const city = currentWeather?.location?.name;
   const countryName = currentWeather?.location?.country;
@@ -43,12 +50,13 @@ const HeaderTop = ({ onLocationClick, currentWeather, favorites, addFavorite, re
 
       {/* Exibe o nome da cidade e do país somente se ambos estiverem disponíveis */}
       <div className='location-container-header'>
-        {city && countryName ? (
+     
+        <button className="icon-button" onClick={onLocationClick} title="Localização">
+             {city && countryName ? (
           <h2>{city}, {countryName}</h2>
         ) : (
           <h2>Carregando...</h2>
         )}
-        <button className="icon-button" onClick={onLocationClick} title="Localização">
           <span className="material-symbols-outlined">
             location_on
           </span>
@@ -61,9 +69,9 @@ const HeaderTop = ({ onLocationClick, currentWeather, favorites, addFavorite, re
         title="Configurações"
         aria-label="Configurações"
       >
-        <span className="material-symbols-outlined">
-          settings
-        </span>
+       <span class="material-symbols-outlined">
+bookmarks
+</span>
       </button>
     </header>
   );

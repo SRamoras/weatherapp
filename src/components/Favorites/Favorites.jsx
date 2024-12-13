@@ -23,7 +23,7 @@ const Favorites = ({ favorites, onSelectFavorite, onRemoveFavorite }) => {
             }));
           })
           .catch((error) => {
-            console.error(`Erro ao obter a bandeira para ${fav.countryName}:`, error);
+            console.error(`Error getting the flag for ${fav.countryName}:`, error);
             setFlags((prevFlags) => ({
               ...prevFlags,
               [fav.countryName]: defaultFlag,
@@ -71,9 +71,30 @@ const Favorites = ({ favorites, onSelectFavorite, onRemoveFavorite }) => {
 
   if (!favorites || favorites.length === 0) return null;
 
+  const getBackgroundClassForCondition = (conditionText) => {
+    if (!conditionText) return 'default-background-day';
+    const text = conditionText.toLowerCase();
+
+    if (text.includes('sun') || text.includes('clear') || text.includes('sunny')) {
+      return 'clear-background-day';
+    } else if (text.includes('cloud') || text.includes('overcast') || text.includes('partly')) {
+      return 'cloudy-background-day';
+    } else if (text.includes('rain') || text.includes('drizzle') || text.includes('shower')) {
+      return 'rainy-background-day';
+    } else if (text.includes('thunder') || text.includes('tstorm')) {
+      return 'thunderstorm-background-day';
+    } else if (text.includes('snow') || text.includes('sleet') || text.includes('blizzard')) {
+      return 'snow-background-day';
+    } else if (text.includes('mist') || text.includes('fog') || text.includes('haze')) {
+      return 'mist-background-day';
+    } else {
+      return 'default-background-day';
+    }
+  };
+
   return (
     <div className="favorites-carousel-container">
-      <h3>Cidades Favoritas</h3>
+      <h3>Favorite Cities</h3>
       <div className="favorites-carousel">
         {canScrollLeft && (
           <button className="carousel-arrow left" onClick={scrollLeftHandler}>
@@ -84,7 +105,7 @@ const Favorites = ({ favorites, onSelectFavorite, onRemoveFavorite }) => {
           {favorites.map((fav, index) => (
             <li 
               key={index} 
-              className="favorite-item" 
+              className={`favorite-item ${getBackgroundClassForCondition(fav.conditionText)}`}
               onClick={() => onSelectFavorite(fav.city)}
             >
               <div className="favorite-content">

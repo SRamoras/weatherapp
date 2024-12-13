@@ -31,7 +31,7 @@
   position: absolute;      /* Posição absoluta, relativa ao .temp-container */
   left: 100%;              /* Posiciona o .degree imediatamente após o .temp */
   top: 0;                  /* Alinha o topo do .degree com o topo do .temp */
-  transform: translate(0, 10%); /* Ajuste fino vertical se necessário */
+  transform: translate(0, 39%); /* Ajuste fino vertical se necessário */
 }
 
 .info-container-main {

@@ -1,120 +1,245 @@
-/* src/components/FavoritesPage/FavoritesPage.css */
 .favorites-page-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    z-index: 1000;
-  }
-  
-  .favorites-page-content {
-    background: #fff;
-    width: 100%;
-    color: #333;
-    max-width: 500px;
-    padding: 20px;
-    border-radius: 20px 20px 0 0;
-    box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+}
+
+.favorites-page-content {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  background: #fff;
+  width: 100%;
+  color: #333;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 20px 20px 0 0;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  animation: slideUp 0.3s forwards;
+  position: relative;
+}
+
+.favorites-page-content.slideDown {
+  animation: slideDown 0.3s forwards;
+}
+
+@keyframes slideUp {
+  0% {
     transform: translateY(100%);
-    animation: slideUp 0.3s forwards;
-    position: relative;
   }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+button:hover {
+  background-color: rgba(82, 82, 82, 0.2);
+  border-radius: 50px;}
+
+
+
+.close-button2 {
+
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000;
+}
+
+
+
+.fav-icon-close {
+color: #000;
+}
+.favorites-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.favorites-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   
-  .favorites-page-content.slideDown {
-    animation: slideDown 0.3s forwards;
-  }
+  /* Altura máxima e rolagem interna */
+  max-height: 385px;
+  overflow-y: auto;
   
-  @keyframes slideUp {
-    0% {
-      transform: translateY(100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes slideDown {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(100%);
-    }
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  .favorites-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-  }
-  
-  .favorites-list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    cursor: pointer;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .favorites-list-item:last-child {
-    border-bottom: none;
-  }
-  
-  .favorites-list-item:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .favorite-info {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .favorite-city {
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 16px;
-  }
-  
-  .favorite-temps {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  .favorite-condition {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .condition-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-  }
-  
-  .remove-favorite {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #333;
-  }
+  /* Ocultando a barra de rolagem */
+  scrollbar-width: none; /* Firefox */
+}
+
+.favorites-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.favorites-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  color: var(--component-text-color, #000);
+}
+
+.favorites-list-item:last-child {
+  border-bottom: none;
+}
+
+.favorites-list-item:hover {
+  background-color: rgba(255,255,255,0.3);
+}
+
+.favorite-info {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 10px;
+  z-index: 1;
+  width: 100%;
+  gap: 10px;
+  height: 100%;
+}
+
+.favorite-current-temp {
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.container-info-fav1 {
+  display: flex;
+  align-items: center;
+}
+
+.container-info-fav {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.favorite-city {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.favorite-temps {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.favorite-condition {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #fff;
+}
+
+.condition-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.remove-favorite {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+}
+
+
+
+/* Background classes */
+.favorites-list-item::before {
+  content: "";
+  position: absolute;
+  top:0; right:0; bottom:0; left:0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(.6);
+}
+
+.clear-background-day::before {
+  background-image: url('../../assets/backgrounds/sol.jpg');
+}
+
+.clear-background-night::before {
+  background-image: url('../../assets/backgrounds/ceulimponoite.jpg');
+}
+
+.cloudy-background-day::before {
+  background-image: url('../../assets/backgrounds/cloudy.jpg');
+}
+
+.rainy-background-day::before {
+  background-image: url('../../assets/backgrounds/rainy-day.jpg');
+}
+
+.thunderstorm-background-day::before {
+  background-image: url('../../assets/backgrounds/thunderstorm-day.jpg');
+}
+
+.snow-background-day::before {
+  background-image: url('../../assets/backgrounds/snow-day.jpg');
+}
+
+.mist-background-day::before {
+  background-image: url('../../assets/backgrounds/mist-day.jpg');
+}
+
+.default-background-day::before {
+  background-image: url('../../assets/backgrounds/default-day.jpg');
+}
+
+.cloudy-background-night::before {
+  background-image: url('../../assets/backgrounds/cloudy.jpg');
+}
+
+.rainy-background-night::before {
+  background-image: url('../../assets/backgrounds/rainy-night.jpg');
+}
+
+.thunderstorm-background-night::before {
+  background-image: url('../../assets/backgrounds/thunderstorm-night.jpg');
+}
+
+.snow-background-night::before {
+  background-image: url('../../assets/backgrounds/snow-night.jpg');
+}
+
+.mist-background-night::before {
+  background-image: url('../../assets/backgrounds/mist-night.jpg');
+}
+
+.default-background-night::before {
+  background-image: url('../../assets/backgrounds/default-night.jpg');
+}

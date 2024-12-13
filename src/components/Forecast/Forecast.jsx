@@ -14,7 +14,7 @@ const Forecast = ({ data }) => {
         <span className="material-symbols-outlined calendar-icon">
           calendar_month
         </span>
-        <h3>Forecast Diário</h3>
+        <h3>Daily Forecast</h3>
       </div>
       <div className="divider"></div> {/* Divisor adicionado aqui */}
       <div className="forecast-container">

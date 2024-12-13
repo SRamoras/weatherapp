@@ -1,5 +1,5 @@
 .mobile-container {
-  width: 375px; /* Largura típica de um smartphone (iPhone X) */
+  width: 375px; 
   height: 812px; 
   border: 1px solid #ccc; 
   border-radius: 30px; 
@@ -15,21 +15,20 @@
   background-position: center;
 }
 
-/* Contêiner principal */
+/* Main container */
 .main-container-home-page {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 40px;
+  padding: 30px;
   font-family: 'Quicksand', sans-serif;
   margin: 0 auto;
   max-width: 500px;
-
   color: var(--component-text-color, #000);
 }
 
-/* Pseudo-elemento para aplicar blur na imagem de fundo */
+/* Before pseudo-element for background image */
 .main-container-home-page::before {
   content: "";
   position: absolute;
@@ -38,125 +37,135 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
- filter: brightness(.6);
+  filter: brightness(.6);
 }
 
-/* Classes de fundo baseadas no clima */
-.default-background::before {
-  background-image: url('./assets/backgrounds/default.jpg');
+/* Weather based backgrounds */
+/* Day/Night variations:
+   We'll store images as clear-day.jpg, clear-night.jpg, etc.
+*/
+
+.clear-background-day::before {
+  background-image: url('./assets/backgrounds/sol.jpg');
+}
+.clear-background-night::before {
+  background-image: url('./assets/backgrounds/ceulimponoite.jpg');
 }
 
-.clear-background::before {
-  background-image: url('./assets/backgrounds/clear.jpg');
+.cloudy-background-day::before {
+  background-image: url('./assets/backgrounds/cloudy.jpg');
 }
-
-.cloudy-background::before {
+.cloudy-background-night::before {
   background-image: url('./assets/backgrounds/cloudy.jpg');
 }
 
-.rainy-background::before {
-  background-image: url('./assets/backgrounds/default.jpg');
+.rainy-background-day::before {
+  background-image: url('./assets/backgrounds/rainy-day.jpg');
+}
+.rainy-background-night::before {
+  background-image: url('./assets/backgrounds/rainy-night.jpg');
 }
 
-.thunderstorm-background::before {
-  background-image: url('./assets/backgrounds/thunderstorm.jpg');
+.thunderstorm-background-day::before {
+  background-image: url('./assets/backgrounds/thunderstorm-day.jpg');
+}
+.thunderstorm-background-night::before {
+  background-image: url('./assets/backgrounds/thunderstorm-night.jpg');
 }
 
-.snow-background::before {
-  background-image: url('./assets/backgrounds/snow.jpg');
+.snow-background-day::before {
+  background-image: url('./assets/backgrounds/snow-day.jpg');
+}
+.snow-background-night::before {
+  background-image: url('./assets/backgrounds/snow-night.jpg');
 }
 
-.mist-background::before {
-  background-image: url('./assets/backgrounds/mist.jpg');
+.mist-background-day::before {
+  background-image: url('./assets/backgrounds/mist-day.jpg');
+}
+.mist-background-night::before {
+  background-image: url('./assets/backgrounds/mist-night.jpg');
 }
 
-/* Gradientes e cores para componentes baseadas no clima */
+.default-background-day::before {
+  background-image: url('./assets/backgrounds/default-day.jpg');
+}
+.default-background-night::before {
+  background-image: url('./assets/backgrounds/default-night.jpg');
+}
+
+/* Background colors for components */
 .clear-background-color {
-  --component-bg-color: rgb(60 106 156);
-  --forecast-item-bg-color: rgb(68 122 181);
-  --component-text-color: #fff;
+  --component-bg-color: transparent;
+  --forecast-item-bg-color: rgba(68, 122, 181, 0.1);
+  --component-text-color: #f0f0f0;
 }
 
 .cloudy-background-color {
-  /* --component-bg-color: rgb(58 76 88); */
   --component-bg-color: transparent;
-  /* --forecast-item-bg-color: rgb(79 101 115); */
-  --component-text-color: #fff;
+  --component-text-color: #f0f0f0;
 }
 
 .rainy-background-color {
-  --component-bg-color: rgba(100, 100, 200, 0.7);
-  --component-text-color: #fff;
+  --component-bg-color: transparent;
+  --component-text-color: #f0f0f0;
 }
 
 .thunderstorm-background-color {
   --component-bg-color: rgba(80, 80, 80, 0.7);
-  --component-text-color: #fff;
+  --component-text-color: #f0f0f0;
 }
 
 .snow-background-color {
   --component-bg-color: rgba(255, 255, 255, 0.8);
-  --component-text-color: #000;
+  --component-text-color: #f0f0f0;
 }
 
 .mist-background-color {
   --component-bg-color: rgba(240, 240, 240, 0.7);
-  --component-text-color: #000;
+  --component-text-color: #f0f0f0;
 }
 
 .default-background-color {
-  --component-bg-color: rgba(255, 255, 255, 1);
-  --component-text-color: #000;
+  --component-bg-color: transparent;
+  --component-text-color: #f0f0f0;
 }
 
-/* Aplicar as cores nos componentes internos */
-
+/* Apply the colors to internal components */
 .favorites-carousel-container,
 .forecast, 
 .favorites,
 .hourly-forecast {
   background-color: var(--component-bg-color, #fff);
   color: var(--component-text-color, #fff);
-
-
 }
-.favorite-item,
-.forecast-item,.hourly-forecast {
 
-  color: var(--component-text-color, #000);
-
-
-}.favorites-carousel-container h3 {
-  color: var(--component-text-color, #000);
-}
-.favorite-city{
-  color: var(--component-text-color, #000);
-}
-/* Ajustes gerais */
+/* General adjustments */
 .error {
   color: red;
   margin-top: 10px;
 }
+
 .header-container{
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-}.top-bar-container {
-  display: flex;
-  align-items: center;
-  position: relative; /* permite posicionar o searchbar absolutamente */
-  height: 60px; /* altura do header */
 }
 
-/* Quando a barra de busca está expandida, o header fica "invisível" */
+.top-bar-container {
+  display: flex;
+  align-items: center;
+  position: relative; 
+  height: 60px; 
+}
+
 .top-bar-container.expanded .header {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
 
-/* Comportamento normal do header */
 .header {
   flex: 1;
   display: flex;
@@ -164,11 +173,3 @@
   align-items: center;
   transition: opacity 0.3s ease;
 }
-
-/* Ajustar o searchbar para posicionar-se por cima do header ao expandir */
-
-
-/* Ao expandir, adicionamos a classe expanded no top-bar-container via JS */
-/* No SearchBar.jsx, quando expandido chamamos onExpandChange(true) 
-   No App.jsx, setamos a classe .expanded no top-bar-container dinamicamente */
-
