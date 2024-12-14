@@ -1,4 +1,4 @@
-/* src/components/CurrentWeather/CurrentWeather.css */
+
 
 .current-weather {
   border-radius: 8px;
@@ -13,9 +13,9 @@
 }
 .temp-container {
   display: flex;
-  justify-content: center; /* Centraliza o .temp horizontalmente */
-  align-items: center;     /* Centraliza o .temp verticalmente */
-  position: relative;      /* Posição relativa para posicionar o .degree */
+  justify-content: center;
+  align-items: center;    
+  position: relative;     
 }
 
 .temp {
@@ -28,10 +28,10 @@
 .degree {
   font-size: 3rem;
   font-weight: 300;
-  position: absolute;      /* Posição absoluta, relativa ao .temp-container */
-  left: 100%;              /* Posiciona o .degree imediatamente após o .temp */
-  top: 0;                  /* Alinha o topo do .degree com o topo do .temp */
-  transform: translate(0, 39%); /* Ajuste fino vertical se necessário */
+  position: absolute;     
+  left: 100%;             
+  top: 0;                 
+  transform: translate(0, 39%);
 }
 
 .info-container-main {
@@ -62,9 +62,9 @@
 .date-display {
   text-align: center;
   padding-bottom: 20px;
-  margin-bottom: 10px; /* Espaço antes do conteúdo principal */
-  font-size: 1.2rem; /* Tamanho da fonte */
-  color: #FFF; /* Cor do texto */
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #FFF;
 }
 
 .temp-min-max {

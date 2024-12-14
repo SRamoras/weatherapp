@@ -24,11 +24,11 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  scrollbar-width: none; /* Ocultar barra de rolagem no Firefox */
+  scrollbar-width: none;
 }
 
 .favorites-carousel ul::-webkit-scrollbar {
-  display: none; /* Ocultar barra de rolagem no Chrome/Safari */
+  display: none;
 }
 
 .favorite-item {
@@ -37,7 +37,7 @@
   flex-direction: column;
   align-items: center;
   background-color: #ffffff;
-  padding: 20px 20px 40px; /* Espaço adicional para o botão no topo */
+  padding: 20px 20px 40px;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -67,7 +67,7 @@
   text-decoration: underline;
 }
 
-/* Botão de remover no canto superior direito */
+
 .remove-button {
   position: absolute;
   top: 10px;
@@ -93,7 +93,7 @@
   color: #ff1a1a;
 }
 
-/* Setas do carrossel */
+
 .carousel-arrow {
   position: absolute;
   top: 50%;

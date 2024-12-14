@@ -11,7 +11,7 @@ const SearchBar = ({ onSearch, onClose, isClosing }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Dispara a animação de abertura após o mount
+    
     setIsVisible(true);
   }, []);
 

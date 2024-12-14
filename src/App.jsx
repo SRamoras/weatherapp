@@ -9,7 +9,7 @@ import FavoritesPage from './components/FavoritesPage/FavoritesPage';
 import Phone from './components/Phone';
 import Card from './components/Card';
 
-// Correct Font Awesome import
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import { 
@@ -33,11 +33,11 @@ const App = () => {
   const [coords, setCoords] = useState(null);
   const [showFavoritesPage, setShowFavoritesPage] = useState(false);
 
-  // Controls the search bar
+  
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isClosingSearchBar, setIsClosingSearchBar] = useState(false);
 
-  // Refs for drag-to-scroll
+  
   const containerRef = useRef(null);
   const isDownRef = useRef(false);
   const startYRef = useRef(0);
@@ -116,7 +116,7 @@ const App = () => {
         city: weatherResponse.data.location.name, 
         country: countryName 
       });
-      // Close the SearchBar with animation
+      
       handleCloseSearchBar();
     } catch (err) {
       console.error('Search error:', err);
@@ -222,9 +222,9 @@ const App = () => {
   };
 
   const handleCloseSearchBar = () => {
-    // Start closing animation
+    
     setIsClosingSearchBar(true);
-    // After 300ms, really close the component
+ 
     setTimeout(() => {
       setShowSearchBar(false);
       setIsClosingSearchBar(false);
@@ -250,7 +250,7 @@ const App = () => {
   const minTemp = forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c;
   const maxTemp = forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c;
 
-  // Drag-to-Scroll Handlers
+  
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -276,11 +276,11 @@ const App = () => {
       if (!isDownRef.current) return;
       e.preventDefault();
       const y = e.pageY - container.offsetTop;
-      const walk = (y - startYRef.current) * 1; // Sensitivity
+      const walk = (y - startYRef.current) * 1; 
       container.scrollTop = scrollTopRef.current - walk;
     };
 
-    // Touch events for mobile devices
+    
     const handleTouchStart = (e) => {
       isDownRef.current = true;
       startYRef.current = e.touches[0].pageY - container.offsetTop;
@@ -294,22 +294,22 @@ const App = () => {
     const handleTouchMove = (e) => {
       if (!isDownRef.current) return;
       const y = e.touches[0].pageY - container.offsetTop;
-      const walk = (y - startYRef.current) * 1; // Sensitivity
+      const walk = (y - startYRef.current) * 1; 
       container.scrollTop = scrollTopRef.current - walk;
     };
 
-    // Event listeners
+    
     container.addEventListener('mousedown', handleMouseDown);
     container.addEventListener('mouseleave', handleMouseLeave);
     container.addEventListener('mouseup', handleMouseUp);
     container.addEventListener('mousemove', handleMouseMove);
 
-    // Touch event listeners
+    
     container.addEventListener('touchstart', handleTouchStart);
     container.addEventListener('touchend', handleTouchEnd);
     container.addEventListener('touchmove', handleTouchMove);
 
-    // Cleanup
+    
     return () => {
       container.removeEventListener('mousedown', handleMouseDown);
       container.removeEventListener('mouseleave', handleMouseLeave);
@@ -369,12 +369,7 @@ const App = () => {
           />
         )}
       </div>
-      {/* Se você quiser usar um header separado, descomente abaixo:
-      <Header
-        onLocationClick={handleLocationClick}
-        onSettingsClick={handleSettingsClick}
-        onSearchIconClick={handleSearchIconClick}
-      /> */}
+
       <Card />
     </div>
   );

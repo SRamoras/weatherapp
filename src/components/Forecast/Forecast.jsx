@@ -1,4 +1,4 @@
-// src/components/Forecast/Forecast.jsx
+
 import React from 'react';
 import './Forecast.css';
 

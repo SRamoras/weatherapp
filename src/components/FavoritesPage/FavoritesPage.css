@@ -1,5 +1,5 @@
 .favorites-page-overlay {
-  position: absolute; /* Alterado de fixed para absolute */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -80,16 +80,16 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   
-  /* Altura máxima e rolagem interna */
+ 
   max-height: 385px;
   overflow-y: auto;
   
-  /* Ocultando a barra de rolagem */
-  scrollbar-width: none; /* Firefox */
+ 
+  scrollbar-width: none;
 }
 
 .favorites-list::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 .favorites-list-item {
@@ -174,7 +174,7 @@ button:hover {
   cursor: pointer;
 }
 
-/* Background classes */
+
 .favorites-list-item::before {
   content: "";
   position: absolute;

@@ -1,4 +1,4 @@
-// src/components/Favorites/Favorites.jsx
+
 import React, { useEffect, useState, useRef } from 'react';
 import './Favorites.css';
 import { getCountryInfo } from '../../services/api';

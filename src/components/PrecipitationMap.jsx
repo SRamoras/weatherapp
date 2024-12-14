@@ -22,7 +22,7 @@ const PrecipitationMap = ({ forecast }) => {
           <CircleMarker
             key={index}
             center={[lat, lon]}
-            radius={day.day.totalprecip_mm / 2} // Ajuste o divisor conforme necessário para o tamanho
+            radius={day.day.totalprecip_mm / 2} 
             color="blue"
             fillColor="blue"
             fillOpacity={0.4}

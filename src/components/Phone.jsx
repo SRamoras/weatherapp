@@ -2,13 +2,13 @@ import React from 'react';
 import './phone.css';
 
 const Phone = () => {
-  // Função para rolar a página para o topo suavemente
+  
   const scrollToTop = () => {
     const mainContainer = document.querySelector('.main-container-home-page');
     if (mainContainer) {
       mainContainer.scrollTo({
         top: 0,
-        behavior: 'smooth', // Rolagem suave
+        behavior: 'smooth', 
       });
     }
   };

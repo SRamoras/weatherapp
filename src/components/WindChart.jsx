@@ -1,16 +1,16 @@
-// src/components/WindChart.jsx
+
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
 
-// Registro dos componentes do Chart.js
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const WindChart = ({ hourlyData }) => {
   if (!hourlyData || hourlyData.length === 0) return null;
 
-  // Extrai as horas e as velocidades do vento
+  
   const hours = hourlyData.map(hour => new Date(hour.time).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
   const windSpeeds = hourlyData.map(hour => hour.wind_kph);
 

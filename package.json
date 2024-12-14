@@ -1,13 +1,17 @@
 {
   "name": "weatherapp",
+  "homepage": "https://seu-usuario.github.io/seu-repositorio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "react-scripts build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "start": "react-scripts start",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.1",
@@ -29,6 +33,7 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
+    "gh-pages": "^6.2.0",
     "globals": "^15.12.0",
     "vite": "^6.0.1"
   }

@@ -1,7 +1,7 @@
-// src/components/Layout/HeaderTop.jsx
+
 import React from 'react';
 import './HeaderTop.css';
-// Removido: import { FaPlus, FaHeart } from 'react-icons/fa'; // Importando os ícones
+
 
 const HeaderTop = ({
   onLocationClick,
@@ -11,15 +11,15 @@ const HeaderTop = ({
   removeFavorite,
   onSettingsClick
 }) => {
-  // Extraindo a cidade e o nome do país de currentWeather
+  
   const city = currentWeather?.location?.name;
   const countryName = currentWeather?.location?.country;
 
-  // Verifica se a cidade atual já está nos favoritos
+  
   const isFavorite = city && favorites.some(fav => fav.city === city);
 
   const handleFavoriteClick = () => {
-    if (!city || !countryName) return; // Se não tiver a cidade carregada corretamente
+    if (!city || !countryName) return; 
 
     if (isFavorite) {
       removeFavorite(city);
@@ -48,7 +48,7 @@ const HeaderTop = ({
         </button>
       )}
 
-      {/* Exibe o nome da cidade e do país somente se ambos estiverem disponíveis */}
+     
       <div className='location-container-header'>
      
         <button className="icon-button" onClick={onLocationClick} title="Localização">

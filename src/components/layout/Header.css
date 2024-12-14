@@ -1,4 +1,4 @@
-/* src/components/Layout/Header.css */
+
 
 .fixed-header {
     display: flex;
@@ -8,10 +8,10 @@
     width: 100%;
     margin: 0 auto;
     height: 60px;
-    background-color: rgba(255,255,255,1); /* Fundo branco */
+    background-color: rgba(255,255,255,1);
     display: flex;
     align-items: center;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.1); /* Sombra acima, pois está no bottom */
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
     z-index: 5000;
   }
   

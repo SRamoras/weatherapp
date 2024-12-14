@@ -1,4 +1,4 @@
-/* src/components/HourlyForecast/HourlyForecast.css */
+
 
 .hourly-forecast {
     margin: 20px 0;
@@ -23,13 +23,13 @@
   }
   .hourly-items-container {
     display: flex;
-/* Esconde as barras de rolagem */
+
     gap: 55.3px;
   }
   
   .hourly-item {
     flex: 0 0 auto;
-    width: 38px; /* Ajuste conforme necessário para responsividade */
+    width: 38px;
     border-radius: 8px;
     text-align: center;
 
@@ -48,8 +48,8 @@
   }
   
   .weather-icon {
-    width: 60px; /* Aumenta o tamanho conforme necessário */
-    height: 60px; /* Aumenta o tamanho conforme necessário */
+    width: 60px;
+    height: 60px;
   }
 
 
@@ -73,19 +73,19 @@
   }
   
   .carousel-arrow.left {
-    left: -10px; /* Ajuste conforme necessário */
+    left: -10px;
   }
   
   .carousel-arrow.right {
-    right: -10px; /* Ajuste conforme necessário */
+    right: -10px;
   }
   
-  /* Oculta as barras de rolagem em navegadores Webkit */
+ 
   .hourly-items-container::-webkit-scrollbar {
     display: none;
   }
   
-  /* Oculta as barras de rolagem em Firefox */
+ 
   .hourly-items-container {
     scrollbar-width: none;
   }

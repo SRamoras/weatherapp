@@ -14,8 +14,8 @@
     border-bottom-right-radius:50px ;
     border-top-left-radius:50px ;
     border-top-right-radius:50px ;
-    pointer-events: none; /* Permite que os cliques passem através deste elemento */
-    overflow: hidden; /* Impede o conteúdo de ultrapassar as bordas arredondadas */
+    pointer-events: none;
+    overflow: hidden;
   }
   
   .back-phone {
@@ -73,7 +73,7 @@ background: linear-gradient(90deg, rgba(5,0,96,1) 0%, rgba(2,0,36,1) 60%, rgba(6
     width: 50px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 50px; 
-    pointer-events: auto; /* Permite clicar no botão dentro do container */
+    pointer-events: auto;
   }
   
   .back-phone button:hover{
@@ -81,13 +81,13 @@ background: linear-gradient(90deg, rgba(5,0,96,1) 0%, rgba(2,0,36,1) 60%, rgba(6
     border-radius: 50px;  
   }
   
-  /* Se você tiver elementos interativos dentro de .phone-container, por exemplo, botões ou links */
+ 
   .phone-container .interactive-element {
-    pointer-events: auto; /* Torna este elemento interativo */
+    pointer-events: auto;
   }
   
-  /* Exemplo: se você tiver um botão dentro de .phone-container */
+ 
   .phone-container button {
-    pointer-events: auto; /* Torna todos os botões interativos */
+    pointer-events: auto;
   }
   

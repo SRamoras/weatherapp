@@ -1,4 +1,4 @@
-// src/components/HourlyForecast/HourlyForecast.jsx
+
 import React, { useEffect } from 'react';
 import './HourlyForecast.css';
 
@@ -9,11 +9,11 @@ const HourlyForecast = ({ hourlyData }) => {
 
   if (!hourlyData || hourlyData.length === 0) return null;
 
-  // Seleciona os primeiros 5 itens
+  
   const selectedHourlyData = hourlyData.slice(0, 5);
   console.log('selectedHourlyData (primeiros 5):', selectedHourlyData);
 
-  // Configuração do formatador para português do Brasil com uma casa decimal
+  
   const formatter = new Intl.NumberFormat('pt-BR', {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
@@ -42,7 +42,7 @@ const HourlyForecast = ({ hourlyData }) => {
               className="weather-icon"
               onError={(e) => { 
                 e.target.onerror = null; 
-                e.target.src = '/path/to/default-icon.png'; // Substitua pelo caminho do ícone padrão
+                e.target.src = '/path/to/default-icon.png'; 
               }}
             />
             <p className="temp">{formatter.format(hour.temp_c)}°C</p>

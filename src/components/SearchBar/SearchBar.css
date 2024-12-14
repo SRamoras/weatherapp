@@ -11,16 +11,16 @@
   transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
   opacity: 0;
   visibility: hidden;
-  z-index: 9999; /* Garante que fique por cima de outros elementos */
+  z-index: 9999;
 }
 
-/* Ao abrir, torna-se visível */
+
 .search-bar-container.open {
   opacity: 1;
   visibility: visible;
 }
 
-/* Ao fechar, volta a ficar invisível */
+
 .search-bar-container.close {
   opacity: 0;
   visibility: hidden;

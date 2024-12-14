@@ -1,4 +1,4 @@
-/* src/components/Card.css */
+
 
 button{
   text-decoration: none;
@@ -66,7 +66,8 @@ ul, .card-content p {
   cursor: pointer;
   font-size: 16px;
   color: #ffffff;
-  transition: background-color 0.3s ease;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, border-radius 0.3s ease;
 }
 
 .linkedin-button {
@@ -89,7 +90,7 @@ ul, .card-content p {
   margin-right: 8px;
 }
 
-/* Responsive Design */
+
 @media (max-width: 600px) {
   .card {
     padding: 20px;
