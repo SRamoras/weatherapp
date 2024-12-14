@@ -1,0 +1,25 @@
+.card2 {
+  background-color: transparent;
+  border-radius: 10px;
+
+  padding: 30px;
+  max-width: 600px;
+  margin: 20px;
+  font-family: 'Quicksand', sans-serif;
+  position:fixed;
+  top: 0;
+  left: 0;
+}
+.card2 h1 {
+  font-size: 58px;
+  margin-bottom: 20px;
+  color: #333333;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.card2 p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333333;
+  font-family: "Poppins", sans-serif
+}

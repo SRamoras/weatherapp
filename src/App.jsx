@@ -8,7 +8,7 @@ import HourlyForecast from './components/HourlyForecast/HourlyForecast';
 import FavoritesPage from './components/FavoritesPage/FavoritesPage';
 import Phone from './components/Phone';
 import Card from './components/Card';
-
+import Card2 from './components/Card2';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -370,6 +370,7 @@ const App = () => {
         )}
       </div>
 
+      <Card2 />
       <Card />
     </div>
   );
