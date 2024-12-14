@@ -1,0 +1,107 @@
+/* src/components/Card.css */
+
+button{
+  text-decoration: none;
+}
+.social-buttons a{
+  text-decoration: none;
+}
+.card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  max-width: 600px;
+  margin: 20px;
+  font-family: 'Quicksand', sans-serif;
+  position:fixed;
+  bottom: 0;
+  right: 0;
+}
+ul, .card-content p {
+  font-family: "Poppins", sans-serif;
+}
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.card-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 15px;
+}
+
+.card-features {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.card-features li {
+  margin-bottom: 10px;
+  color: #555555;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.linkedin-button,
+.github-button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.linkedin-button {
+  background-color: #0077B5;
+}
+
+.linkedin-button:hover {
+  background-color: #005582;
+}
+
+.github-button {
+  background-color: #333333;
+}
+
+.github-button:hover {
+  background-color: #555555;
+}
+
+.social-buttons i {
+  margin-right: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .card {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 24px;
+  }
+
+  .linkedin-button,
+  .github-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

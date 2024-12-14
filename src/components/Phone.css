@@ -1,0 +1,93 @@
+.phone-container {
+    background-color: transparent;
+    position: fixed;
+    z-index: 100;
+    border: 9px solid #000000;
+    width: 500px;
+    height: 100vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    z-index: 10000;
+    justify-content: center;
+    border-bottom-left-radius:50px ;
+    border-bottom-right-radius:50px ;
+    border-top-left-radius:50px ;
+    border-top-right-radius:50px ;
+    pointer-events: none; /* Permite que os cliques passem através deste elemento */
+    overflow: hidden; /* Impede o conteúdo de ultrapassar as bordas arredondadas */
+  }
+  
+  .back-phone {
+    background-color: #000000;
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.top-phone{
+    background-color: #000000;
+    width: 50%;
+    border-bottom-left-radius:20px ;
+    border-bottom-right-radius:20px ;
+    height: 30px;
+    position: fixed;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.earphone{
+      background-color: #222121;
+        width: 70px;
+        height: 10px;
+        border-radius: 10px;
+        position: fixed;
+        top: 6px;
+        left: 50%;
+
+
+    transform: translateX(-50%);
+  }
+  .cam{
+
+background: rgb(5,0,96);
+background: linear-gradient(90deg, rgba(5,0,96,1) 0%, rgba(2,0,36,1) 60%, rgba(6,0,93,1) 100%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: fixed;
+    top: 6px;
+    left: 300px;
+    transform: translateX(-50%);
+  }
+  .back-phone button{
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50px; 
+    pointer-events: auto; /* Permite clicar no botão dentro do container */
+  }
+  
+  .back-phone button:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;  
+  }
+  
+  /* Se você tiver elementos interativos dentro de .phone-container, por exemplo, botões ou links */
+  .phone-container .interactive-element {
+    pointer-events: auto; /* Torna este elemento interativo */
+  }
+  
+  /* Exemplo: se você tiver um botão dentro de .phone-container */
+  .phone-container button {
+    pointer-events: auto; /* Torna todos os botões interativos */
+  }
+  

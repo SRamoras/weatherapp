@@ -1,29 +1,23 @@
 // src/components/HourlyForecast/HourlyForecast.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import './HourlyForecast.css';
 
 const HourlyForecast = ({ hourlyData }) => {
+  useEffect(() => {
+    console.log('hourlyData recebido:', hourlyData);
+  }, [hourlyData]);
+
   if (!hourlyData || hourlyData.length === 0) return null;
 
-  // Função para obter o índice do horário atual
-  const getCurrentHourIndex = () => {
-    const now = new Date();
-    return hourlyData.findIndex(hour => {
-      const hourTime = new Date(hour.time);
-      return (
-        hourTime.getHours() === now.getHours() &&
-        hourTime.getMinutes() === 0 // Supondo que os dados são para cada hora cheia
-      );
-    });
-  };
+  // Seleciona os primeiros 5 itens
+  const selectedHourlyData = hourlyData.slice(0, 5);
+  console.log('selectedHourlyData (primeiros 5):', selectedHourlyData);
 
-  const currentIndex = getCurrentHourIndex();
-
-  // Se não encontrar o horário atual, iniciar do começo
-  const startIndex = currentIndex !== -1 ? currentIndex : 0;
-
-  // Selecionar apenas 5 itens a partir do horário atual
-  const selectedHourlyData = hourlyData.slice(startIndex, startIndex + 5);
+  // Configuração do formatador para português do Brasil com uma casa decimal
+  const formatter = new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
 
   return (
     <div className="hourly-forecast">
@@ -33,7 +27,7 @@ const HourlyForecast = ({ hourlyData }) => {
         </span>
         <h3>It seems like today's weather is fun and perfect for walks in the park, or relaxing outdoors.</h3>
       </div>
-      <div className="divider"></div> {/* Divisor adicionado aqui */}
+      <div className="divider"></div>
       <div className="hourly-items-container">
         {selectedHourlyData.map((hour, index) => (
           <div key={index} className="hourly-item">
@@ -51,7 +45,7 @@ const HourlyForecast = ({ hourlyData }) => {
                 e.target.src = '/path/to/default-icon.png'; // Substitua pelo caminho do ícone padrão
               }}
             />
-            <p className="temp">{Math.round(hour.temp_c)}°C</p>
+            <p className="temp">{formatter.format(hour.temp_c)}°C</p>
           </div>
         ))}
       </div>

@@ -24,7 +24,7 @@
   .hourly-items-container {
     display: flex;
 /* Esconde as barras de rolagem */
-    gap: 57.3px;
+    gap: 55.3px;
   }
   
   .hourly-item {

@@ -43,13 +43,12 @@ const FavoritesPage = ({ favorites, onClose, onSelectFavorite, onRemoveFavorite 
         onClick={(e) => e.stopPropagation()}
       >
         <div className="favorites-header">
-      
-        <h2>Saved Favorites</h2>
+          <h2>Saved Favorites</h2>
           <button className="close-button2" onClick={handleClose}>
-            <span class="material-symbols-outlined fav-icon-close">
-cancel
-</span>
-</button>
+            <span className="material-symbols-outlined fav-icon-close">
+              cancel
+            </span>
+          </button>
         </div>
         {favorites.length === 0 ? (
           <p>No favorites saved.</p>
@@ -63,22 +62,26 @@ cancel
               >
                 <div className="favorite-info">
                   <div>
-                  <div className='container-info-fav1'>
-                    <span className="favorite-current-temp">{fav.currentTemp}°C</span>
+                    <div className='container-info-fav1'>
+                      <span className="favorite-current-temp">{fav.currentTemp}°C</span>
+                    </div>
+                    <div className='container-info-fav'>
+                      <span className="favorite-city">{fav.city}, {fav.countryName}</span>
+                      <span className="favorite-temps">Min: {fav.minTemp}°C / Max: {fav.maxTemp}°C</span>
+                      <span className="favorite-condition">
+                        {fav.conditionIcon && (
+                          <img src={fav.conditionIcon} alt={fav.conditionText} className="condition-icon" />
+                        )}
+                        {fav.conditionText}
+                      </span>
+                    </div>
                   </div>
-                  <div className='container-info-fav'>
-                    <span className="favorite-city">{fav.city}, {fav.countryName}</span>
-                    <span className="favorite-temps">Min: {fav.minTemp}°C / Max: {fav.maxTemp}°C</span>
-                    <span className="favorite-condition">
-                      {fav.conditionIcon && (
-                        <img src={fav.conditionIcon} alt={fav.conditionText} className="condition-icon" />
-                      )}
-                      {fav.conditionText}
-                    </span>
-                  </div>
-                </div>
-                <button className="remove-favorite" onClick={(e) => {e.stopPropagation(); onRemoveFavorite(fav.city);}}>Remove</button>
-
+                  <button 
+                    className="remove-favorite" 
+                    onClick={(e) => {e.stopPropagation(); onRemoveFavorite(fav.city);}}
+                  >
+                    Remove
+                  </button>
                 </div>
               </li>
             ))}

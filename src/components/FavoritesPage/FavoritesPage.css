@@ -1,5 +1,5 @@
 .favorites-page-overlay {
-  position: fixed;
+  position: absolute; /* Alterado de fixed para absolute */
   top: 0;
   left: 0;
   width: 100%;
@@ -18,11 +18,12 @@
   background: #fff;
   width: 100%;
   color: #333;
-  max-width: 500px;
+  max-width: 490px;
   padding: 20px;
   border-radius: 20px 20px 0 0;
   box-sizing: border-box;
   transform: translateY(100%);
+  margin-bottom: 60px;
   animation: slideUp 0.3s forwards;
   position: relative;
 }
@@ -48,30 +49,29 @@
     transform: translateY(100%);
   }
 }
+
 button:hover {
   background-color: rgba(82, 82, 82, 0.2);
-  border-radius: 50px;}
-
-
+  border-radius: 50px;
+}
 
 .close-button2 {
-
   background: none;
   border: none;
   cursor: pointer;
   color: #000;
 }
 
-
-
 .fav-icon-close {
-color: #000;
+  color: #000;
 }
+
 .favorites-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .favorites-list {
   list-style: none;
   padding: 0;
@@ -171,10 +171,8 @@ color: #000;
   background-color: transparent;
   border: none;
   outline: none;
-
+  cursor: pointer;
 }
-
-
 
 /* Background classes */
 .favorites-list-item::before {
@@ -201,11 +199,11 @@ color: #000;
 }
 
 .rainy-background-day::before {
-  background-image: url('../../assets/backgrounds/rainy-day.jpg');
+  background-image: url('../../assets/backgrounds/default.jpg');
 }
 
 .thunderstorm-background-day::before {
-  background-image: url('../../assets/backgrounds/thunderstorm-day.jpg');
+  background-image: url('../../assets/backgrounds/thunderstorm.jpg');
 }
 
 .snow-background-day::before {
@@ -225,11 +223,11 @@ color: #000;
 }
 
 .rainy-background-night::before {
-  background-image: url('../../assets/backgrounds/rainy-night.jpg');
+  background-image: url('../../assets/backgrounds/default.jpg');
 }
 
 .thunderstorm-background-night::before {
-  background-image: url('../../assets/backgrounds/thunderstorm-night.jpg');
+  background-image: url('../../assets/backgrounds/thunderstorm.jpg');
 }
 
 .snow-background-night::before {

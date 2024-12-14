@@ -1,13 +1,17 @@
-// src/App.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Layout/Header';
 import HeaderTop from './components/Layout/HeaderTop';
 import SearchBar from './components/SearchBar/SearchBar';
 import CurrentWeather from './components/CurrentWeather/CurrentWeather';
 import Forecast from './components/Forecast/Forecast';
 import HourlyForecast from './components/HourlyForecast/HourlyForecast';
-import Favorites from './components/Favorites/Favorites';
 import FavoritesPage from './components/FavoritesPage/FavoritesPage';
+import Phone from './components/Phone';
+import Card from './components/Card';
+
+// Correct Font Awesome import
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import { 
   getCurrentWeather, 
   getForecast, 
@@ -32,6 +36,12 @@ const App = () => {
   // Controls the search bar
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isClosingSearchBar, setIsClosingSearchBar] = useState(false);
+
+  // Refs for drag-to-scroll
+  const containerRef = useRef(null);
+  const isDownRef = useRef(false);
+  const startYRef = useRef(0);
+  const scrollTopRef = useRef(0);
 
   useEffect(() => {
     const fetchLocationByIP = async () => {
@@ -137,7 +147,7 @@ const App = () => {
             maxTemp: forecast.forecast.forecastday[0].day.maxtemp_c,
             conditionText: currentWeather.current.condition.text,
             conditionIcon: currentWeather.current.condition.icon,
-            isDay: currentWeather.current.is_day === 1 // Add this line
+            isDay: currentWeather.current.is_day === 1
           }
         ];
         setFavorites(updatedFavorites);
@@ -149,7 +159,6 @@ const App = () => {
       console.error('Invalid or already existing favorite:', cityObj);
     }
   };
-  
 
   const removeFavorite = (city) => {
     const updatedFavorites = favorites.filter(fav => fav.city !== city);
@@ -160,9 +169,8 @@ const App = () => {
   const getBackgroundClass = () => {
     if (!currentWeather || !currentWeather.current || !currentWeather.current.condition) return 'default-background';
     const weatherText = currentWeather.current.condition.text.toLowerCase();
-    const isDay = currentWeather.current.is_day === 1; // true if day, false if night
+    const isDay = currentWeather.current.is_day === 1; 
 
-    // Helper function to return the correct background class based on condition and time of day
     const getClass = (base) => {
       return isDay ? `${base}-day` : `${base}-night`;
     };
@@ -187,8 +195,7 @@ const App = () => {
   const getBackgroundClassColor = () => {
     if (!currentWeather || !currentWeather.current || !currentWeather.current.condition) return 'default-background-color';
     const weatherText = currentWeather.current.condition.text.toLowerCase();
-    // For simplicity, we can just return a similar scheme for colors.
-    // If you want different colors for day/night, you can also apply logic here.
+
     if (weatherText.includes('sun') || weatherText.includes('clear') || weatherText.includes('sunny')) {
       return 'clear-background-color';
     } else if (weatherText.includes('cloud') || weatherText.includes('overcast') || weatherText.includes('partly')) {
@@ -243,9 +250,85 @@ const App = () => {
   const minTemp = forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c;
   const maxTemp = forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c;
 
+  // Drag-to-Scroll Handlers
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleMouseDown = (e) => {
+      isDownRef.current = true;
+      container.classList.add('active-cursor');
+      startYRef.current = e.pageY - container.offsetTop;
+      scrollTopRef.current = container.scrollTop;
+    };
+
+    const handleMouseLeave = () => {
+      isDownRef.current = false;
+      container.classList.remove('active-cursor');
+    };
+
+    const handleMouseUp = () => {
+      isDownRef.current = false;
+      container.classList.remove('active-cursor');
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDownRef.current) return;
+      e.preventDefault();
+      const y = e.pageY - container.offsetTop;
+      const walk = (y - startYRef.current) * 1; // Sensitivity
+      container.scrollTop = scrollTopRef.current - walk;
+    };
+
+    // Touch events for mobile devices
+    const handleTouchStart = (e) => {
+      isDownRef.current = true;
+      startYRef.current = e.touches[0].pageY - container.offsetTop;
+      scrollTopRef.current = container.scrollTop;
+    };
+
+    const handleTouchEnd = () => {
+      isDownRef.current = false;
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isDownRef.current) return;
+      const y = e.touches[0].pageY - container.offsetTop;
+      const walk = (y - startYRef.current) * 1; // Sensitivity
+      container.scrollTop = scrollTopRef.current - walk;
+    };
+
+    // Event listeners
+    container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('mousemove', handleMouseMove);
+
+    // Touch event listeners
+    container.addEventListener('touchstart', handleTouchStart);
+    container.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener('touchmove', handleTouchMove);
+
+    // Cleanup
+    return () => {
+      container.removeEventListener('mousedown', handleMouseDown);
+      container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('mousemove', handleMouseMove);
+
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
   return (
-    <div>
-      <div className={`main-container-home-page ${getBackgroundClass()} ${getBackgroundClassColor()}`}>
+    <div className="app-wrapper">
+      <Phone/>
+      <div 
+        ref={containerRef}
+        className={`main-container-home-page ${getBackgroundClass()} ${getBackgroundClassColor()} ${showFavoritesPage ? 'no-scroll' : ''}`}
+      >
         <HeaderTop 
           currentWeather={currentWeather}
           favorites={favorites}
@@ -286,12 +369,13 @@ const App = () => {
           />
         )}
       </div>
-      {/* If you want to use a separate header, uncomment below:
+      {/* Se você quiser usar um header separado, descomente abaixo:
       <Header
         onLocationClick={handleLocationClick}
         onSettingsClick={handleSettingsClick}
         onSearchIconClick={handleSearchIconClick}
       /> */}
+      <Card />
     </div>
   );
 };

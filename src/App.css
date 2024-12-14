@@ -11,8 +11,14 @@
   padding: 20px; 
   box-sizing: border-box;
   background-image: url('./assets/images/smartphone-mockup.png'); 
-  background-size: cover;
+  background-size: cover; /* Garante que a imagem cubra todo o contêiner */
   background-position: center;
+  position: relative;
+}
+
+.app-wrapper {
+  /* Certifique-se de que o app-wrapper tenha posição relativa se necessário */
+  position: relative;
 }
 
 /* Main container */
@@ -21,30 +27,59 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 30px;
+  padding-top: 40px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 80px;
+
   font-family: 'Quicksand', sans-serif;
   margin: 0 auto;
   max-width: 500px;
   color: var(--component-text-color, #000);
+  overflow-y: auto; /* Permite rolagem interna */
+  height: 100vh;
+  box-sizing: border-box;
+  /* Espaço para não esconder conteúdo atrás da barra inferior */
+  border-radius: 50px;
+  
+  /* Oculta a barra de rolagem */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE e Edge */
+  
+  /* Cursor styles for drag-to-scroll */
+  user-select: none; /* Evita seleção de texto durante o arrasto */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Classe para desabilitar a rolagem */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* Mantenha o scrollbar oculto para WebKit */
+.main-container-home-page::-webkit-scrollbar {
+  display: none; /* Safari e Chrome */
 }
 
 /* Before pseudo-element for background image */
 .main-container-home-page::before {
   content: "";
   position: absolute;
-  top:0; right:0; bottom:0; left:0;
+  top: 0; 
+  right: 0; 
+  min-height: 90rem;
+  bottom: 0; 
+  left: 0;
   z-index: -1;
-  background-size: cover;
+  background-size: cover; /* Garante que a imagem cubra todo o contêiner */
+
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(.6);
+
+  filter: brightness(0.6);
 }
 
 /* Weather based backgrounds */
-/* Day/Night variations:
-   We'll store images as clear-day.jpg, clear-night.jpg, etc.
-*/
-
 .clear-background-day::before {
   background-image: url('./assets/backgrounds/sol.jpg');
 }
@@ -60,17 +95,17 @@
 }
 
 .rainy-background-day::before {
-  background-image: url('./assets/backgrounds/rainy-day.jpg');
+  background-image: url('./assets/backgrounds/default.jpg');
 }
 .rainy-background-night::before {
-  background-image: url('./assets/backgrounds/rainy-night.jpg');
+  background-image: url('./assets/backgrounds/default.jpg');
 }
 
 .thunderstorm-background-day::before {
-  background-image: url('./assets/backgrounds/thunderstorm-day.jpg');
+  background-image: url('./assets/backgrounds/thunderstorm.jpg');
 }
 .thunderstorm-background-night::before {
-  background-image: url('./assets/backgrounds/thunderstorm-night.jpg');
+  background-image: url('./assets/backgrounds/thunderstorm.jpg');
 }
 
 .snow-background-day::before {
@@ -172,4 +207,50 @@
   justify-content: flex-start;
   align-items: center;
   transition: opacity 0.3s ease;
+}
+
+/* Se você tiver elementos interativos dentro de .phone-container, por exemplo, botões ou links */
+.phone-container .interactive-element {
+  pointer-events: auto; /* Torna este elemento interativo */
+}
+
+/* Exemplo: se você tiver um botão dentro de .phone-container */
+.phone-container button {
+  pointer-events: auto; /* Torna todos os botões interativos */
+}
+
+/* Cursor change for drag-to-scroll */
+.main-container-home-page {
+
+}
+
+.main-container-home-page.active-cursor {
+
+}
+
+/* Spinner styling */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #09f;
+  animation: spin 1s ease infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Smooth scroll behavior */
+.main-container-home-page {
+
+}
+
+/* Optional: Enhance touch scrolling experience */
+@media (max-width: 768px) {
+  .main-container-home-page {
+    -webkit-overflow-scrolling: touch;
+  }
 }
