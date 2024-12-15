@@ -1,23 +1,28 @@
-
 import React, { useEffect } from 'react';
 import './HourlyForecast.css';
 
 const HourlyForecast = ({ hourlyData }) => {
   useEffect(() => {
-    console.log('hourlyData recebido:', hourlyData);
+    console.log('hourlyData received:', hourlyData);
   }, [hourlyData]);
 
   if (!hourlyData || hourlyData.length === 0) return null;
 
-  
   const selectedHourlyData = hourlyData.slice(0, 5);
-  console.log('selectedHourlyData (primeiros 5):', selectedHourlyData);
+  console.log('selectedHourlyData (first 5):', selectedHourlyData);
 
-  
-  const formatter = new Intl.NumberFormat('pt-BR', {
+  const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   });
+
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
+
+  const formatHour = (hour, index) => {
+    const displayHour = (currentHour + index) % 24;
+    return displayHour.toString().padStart(2, '0') + ':00';
+  };
 
   return (
     <div className="hourly-forecast">
@@ -33,8 +38,8 @@ const HourlyForecast = ({ hourlyData }) => {
           <div key={index} className="hourly-item">
             <p className="hour">
               {index === 0
-                ? 'Agora'
-                : new Date(hour.time).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                ? 'Now'
+                : formatHour(hour.time, index)}
             </p>
             <img 
               src={`https:${hour.condition.icon}`} 

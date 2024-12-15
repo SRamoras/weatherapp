@@ -1,10 +1,11 @@
+/* FavoritesPage/FavoritesPage.css */
 .favorites-page-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -80,11 +81,9 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   
- 
   max-height: 385px;
   overflow-y: auto;
   
- 
   scrollbar-width: none;
 }
 
@@ -207,11 +206,11 @@ button:hover {
 }
 
 .snow-background-day::before {
-  background-image: url('../../assets/backgrounds/snow-day.jpg');
+  background-image: url('../../assets/backgrounds/snow.jpg');
 }
 
 .mist-background-day::before {
-  background-image: url('../../assets/backgrounds/mist-day.jpg');
+  background-image: url('../../assets/backgrounds/misty.jpg');
 }
 
 .default-background-day::before {
@@ -231,11 +230,11 @@ button:hover {
 }
 
 .snow-background-night::before {
-  background-image: url('../../assets/backgrounds/snow-night.jpg');
+  background-image: url('../../assets/backgrounds/snow.jpg');
 }
 
 .mist-background-night::before {
-  background-image: url('../../assets/backgrounds/mist-night.jpg');
+  background-image: url('../../assets/backgrounds/mistynight.jpg');
 }
 
 .default-background-night::before {

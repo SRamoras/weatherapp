@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Layout/Header';
 import HeaderTop from './components/Layout/HeaderTop';
@@ -32,17 +33,49 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [coords, setCoords] = useState(null);
   const [showFavoritesPage, setShowFavoritesPage] = useState(false);
-
   
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [isClosingSearchBar, setIsClosingSearchBar] = useState(false);
 
-  
   const containerRef = useRef(null);
   const isDownRef = useRef(false);
   const startYRef = useRef(0);
   const scrollTopRef = useRef(0);
 
+  // Ref to keep track of showFavoritesPage state inside event handlers
+  const showFavoritesPageRef = useRef(showFavoritesPage);
+  useEffect(() => {
+    showFavoritesPageRef.current = showFavoritesPage;
+  }, [showFavoritesPage]);
+
+  // Add or remove 'no-scroll' class when FavoritesPage is opened or closed
+  useEffect(() => {
+    const mainContainer = document.querySelector('.main-container-home-page');
+    if (showFavoritesPage) {
+      mainContainer.classList.add('no-scroll');
+    } else {
+      mainContainer.classList.remove('no-scroll');
+    }
+
+    // Prevent touchmove when FavoritesPage is active
+    const preventTouchMove = (e) => {
+      e.preventDefault();
+    };
+
+    if (showFavoritesPage) {
+      mainContainer.addEventListener('touchmove', preventTouchMove, { passive: false });
+    } else {
+      mainContainer.removeEventListener('touchmove', preventTouchMove);
+    }
+
+    // Cleanup on unmount
+    return () => {
+      mainContainer.classList.remove('no-scroll');
+      mainContainer.removeEventListener('touchmove', preventTouchMove);
+    };
+  }, [showFavoritesPage]);
+
+  // Fetch user's current location by IP on mount
   useEffect(() => {
     const fetchLocationByIP = async () => {
       try {
@@ -65,6 +98,7 @@ const App = () => {
     fetchLocationByIP();
   }, []);
 
+  // Fetch weather data based on coordinates
   useEffect(() => {
     const fetchWeatherByCoords = async () => {
       if (coords) {
@@ -95,11 +129,13 @@ const App = () => {
     fetchWeatherByCoords();
   }, [coords]);
 
+  // Update localStorage when favorites change
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
     console.log('Favorites updated in localStorage:', favorites);
   }, [favorites]);
 
+  // Handle search functionality
   const handleSearch = async (city) => {
     try {
       setError('');
@@ -121,19 +157,47 @@ const App = () => {
     } catch (err) {
       console.error('Search error:', err);
       if (err.response) {
-        setError(err.response.data.error?.message || 'API response error.');
+        if (err.response.data.error && err.response.data.error.message === 'No matching location found.') {
+          setError('Location not found. Showing weather for your current region.');
+          // Fallback to current coordinates
+          if (coords) {
+            try {
+              setLoading(true);
+              const weatherResponse = await getCurrentWeatherByCoords(coords.latitude, coords.longitude);
+              setCurrentWeather(weatherResponse.data);
+              const forecastResponse = await getForecastByCoords(coords.latitude, coords.longitude);
+              setForecast(forecastResponse.data);
+            } catch (fallbackError) {
+              console.error('Error fetching fallback location:', fallbackError);
+              setError('Unable to fetch weather for your current location.');
+              setCurrentWeather(null);
+              setForecast(null);
+            } finally {
+              setLoading(false);
+            }
+          } else {
+            setError('No coordinates available to fetch weather.');
+          }
+        } else {
+          setError(err.response.data.error?.message || 'API response error.');
+          setCurrentWeather(null);
+          setForecast(null);
+        }
       } else if (err.request) {
         setError('No API response. Check your connection.');
+        setCurrentWeather(null);
+        setForecast(null);
       } else {
         setError('Request setup error.');
+        setCurrentWeather(null);
+        setForecast(null);
       }
-      setCurrentWeather(null);
-      setForecast(null);
     } finally {
       setLoading(false);
     }
   };
 
+  // Add a city to favorites
   const addFavorite = (cityObj) => {
     if (cityObj.city && cityObj.countryName && !favorites.find(fav => fav.city === cityObj.city)) {
       if (currentWeather && forecast) {
@@ -160,12 +224,14 @@ const App = () => {
     }
   };
 
+  // Remove a city from favorites
   const removeFavorite = (city) => {
     const updatedFavorites = favorites.filter(fav => fav.city !== city);
     setFavorites(updatedFavorites);
     console.log(`Removed from favorites: ${city}`, updatedFavorites);
   };
 
+  // Determine background class based on weather conditions
   const getBackgroundClass = () => {
     if (!currentWeather || !currentWeather.current || !currentWeather.current.condition) return 'default-background';
     const weatherText = currentWeather.current.condition.text.toLowerCase();
@@ -192,6 +258,7 @@ const App = () => {
     }
   };
 
+  // Determine background color class based on weather conditions
   const getBackgroundClassColor = () => {
     if (!currentWeather || !currentWeather.current || !currentWeather.current.condition) return 'default-background-color';
     const weatherText = currentWeather.current.condition.text.toLowerCase();
@@ -213,24 +280,27 @@ const App = () => {
     }
   };
 
+  // Open FavoritesPage
   const handleSettingsClick = () => {
     setShowFavoritesPage(true);
   };
 
+  // Close FavoritesPage
   const handleCloseFavoritesPage = () => {
     setShowFavoritesPage(false);
   };
 
+  // Close SearchBar with animation
   const handleCloseSearchBar = () => {
-    
     setIsClosingSearchBar(true);
- 
+
     setTimeout(() => {
       setShowSearchBar(false);
       setIsClosingSearchBar(false);
     }, 300);
   };
 
+  // Toggle SearchBar visibility
   const handleSearchIconClick = () => {
     if (showSearchBar) {
       handleCloseSearchBar();
@@ -239,6 +309,7 @@ const App = () => {
     }
   };
 
+  // Handle location icon click to toggle SearchBar
   const handleLocationClick = () => {
     if (showSearchBar) {
       handleCloseSearchBar();
@@ -250,12 +321,14 @@ const App = () => {
   const minTemp = forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c;
   const maxTemp = forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c;
 
-  
+
+  // Drag-to-scroll functionality
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleMouseDown = (e) => {
+      if (showFavoritesPageRef.current) return; // Prevent dragging when FavoritesPage is active
       isDownRef.current = true;
       container.classList.add('active-cursor');
       startYRef.current = e.pageY - container.offsetTop;
@@ -273,15 +346,16 @@ const App = () => {
     };
 
     const handleMouseMove = (e) => {
-      if (!isDownRef.current) return;
+      if (!isDownRef.current || showFavoritesPageRef.current) return;
       e.preventDefault();
       const y = e.pageY - container.offsetTop;
       const walk = (y - startYRef.current) * 1; 
       container.scrollTop = scrollTopRef.current - walk;
     };
 
-    
+
     const handleTouchStart = (e) => {
+      if (showFavoritesPageRef.current) return; // Prevent dragging when FavoritesPage is active
       isDownRef.current = true;
       startYRef.current = e.touches[0].pageY - container.offsetTop;
       scrollTopRef.current = container.scrollTop;
@@ -292,24 +366,24 @@ const App = () => {
     };
 
     const handleTouchMove = (e) => {
-      if (!isDownRef.current) return;
+      if (!isDownRef.current || showFavoritesPageRef.current) return;
       const y = e.touches[0].pageY - container.offsetTop;
       const walk = (y - startYRef.current) * 1; 
       container.scrollTop = scrollTopRef.current - walk;
     };
 
-    
+
     container.addEventListener('mousedown', handleMouseDown);
     container.addEventListener('mouseleave', handleMouseLeave);
     container.addEventListener('mouseup', handleMouseUp);
     container.addEventListener('mousemove', handleMouseMove);
 
-    
+
     container.addEventListener('touchstart', handleTouchStart);
     container.addEventListener('touchend', handleTouchEnd);
     container.addEventListener('touchmove', handleTouchMove);
 
-    
+
     return () => {
       container.removeEventListener('mousedown', handleMouseDown);
       container.removeEventListener('mouseleave', handleMouseLeave);
@@ -320,14 +394,14 @@ const App = () => {
       container.removeEventListener('touchend', handleTouchEnd);
       container.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []);
+  }, [showFavoritesPage]);
 
   return (
     <div className="app-wrapper">
       <Phone/>
       <div 
         ref={containerRef}
-        className={`main-container-home-page ${getBackgroundClass()} ${getBackgroundClassColor()} ${showFavoritesPage ? 'no-scroll' : ''}`}
+        className={`main-container-home-page ${getBackgroundClass()} ${getBackgroundClassColor()}`}
       >
         <HeaderTop 
           currentWeather={currentWeather}

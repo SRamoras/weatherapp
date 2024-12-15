@@ -1,3 +1,4 @@
+// FavoritesPage/FavoritesPage.jsx
 import React, { useState } from 'react';
 import './FavoritesPage.css';
 

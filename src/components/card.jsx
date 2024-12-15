@@ -6,7 +6,7 @@ const Card = () => {
   return (
     <div className="card">
       <div className="card-content">
-        <h2 className="card-title">Porpose of this project</h2>
+        <h2 className="card-title">Purpose of this project</h2>
         <p className="card-description">
           Demonstrates my ability to integrate APIs within a React application. This project fetches and displays real-time weather data, including current conditions and hourly forecasts.
         </p>

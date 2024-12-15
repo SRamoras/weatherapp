@@ -121,3 +121,7 @@ const SearchBar = ({ onSearch, onClose, isClosing }) => {
 };
 
 export default SearchBar;
+
+
+
+
