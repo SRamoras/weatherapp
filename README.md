@@ -38,6 +38,24 @@ git clone https://github.com/SRamoras/weatherapp.git
 cd weatherapp
 ```
 
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure Environment Variables
+Create a .env file in the root of the project and add the following variables:
+```bash
+VITE_OPENWEATHER_API_KEY=YOUR_WEATHERAPI_KEY
+VITE_IPINFO_TOKEN=YOUR_IPINFO_TOKEN
+```
+
+### 4. Start the Application
+```bash
+npm run dev
+```
+
 ## 📄 License
 
 This project is licensed under the [MIT License](./LICENSE).
