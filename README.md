@@ -16,7 +16,7 @@
 - 
 ## 🌐 Live Demo
 
-- **Website:** [Storytime Live](https://sramoras.github.io/weatherapp/)
+- **Website:** [Weatherapp](https://sramoras.github.io/weatherapp/)
 ## Technologies Used
 
 ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=white&style=flat)
