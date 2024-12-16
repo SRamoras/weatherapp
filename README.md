@@ -52,7 +52,7 @@ VITE_IPINFO_TOKEN=YOUR_IPINFO_TOKEN
 ```
 - VITE_OPENWEATHER_API_KEY: API key from WeatherAPI.
 - VITE_IPINFO_TOKEN: Access token from ipinfo.io.
-- 
+
 ### 4. Start the Application
 ```bash
 npm run dev
