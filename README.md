@@ -1,6 +1,6 @@
 # WeatherApp
 
-![WeatherApp Screenshot](./screenshot.png)
+![WeatherApp Screenshot](./src/Assets/banner.png)
 
 ## Description
 
